@@ -1,0 +1,19 @@
+{
+    "conditions": [{
+        "type": "minecraft:item_exists",
+        "item": "compactdrawers:compact_drawer_2by1"
+    }],
+    "type": "forge:ore_shaped",
+    "pattern": [
+        "###",
+        "#X#",
+        "ITI"
+    ],
+    "key": {
+        "#": { "item": "minecraft:stone", "data": 0 },
+        "T": { "item": "minecraft:piston" },
+        "X": { "ore": "drawer2Slots", "type": "forge:ore_dict" },
+        "I": { "ore": "ingotIron", "type": "forge:ore_dict" }
+    },
+    "result": { "item": "compactdrawers:compact_drawer_2by1" }
+}

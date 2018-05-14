@@ -1,0 +1,17 @@
+[
+{
+  "modid": "compactdrawers",
+  "name": "CompactDrawers",
+  "description": "Storage Drawer Extension with more compact drawers",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["samtrion"],
+  "credits": "By samtrion",
+  "logoFile": "",
+  "requiredMods": [ "forge", "chameleon", "storagedrawers" ],
+  "dependencies": [ "chameleon", "storagedrawers" ],
+  "useDependencyInformation": true
+}
+]
