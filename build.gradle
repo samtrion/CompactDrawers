@@ -77,8 +77,10 @@ processResources {
     }
 }
 
+println 'Test Started'
 println System.getenv('project.curseforge.api')
-println System.env.project.curseforge.api
+println $(project.curseforge.api)
+println 'Test ended'
 curseforge {
   apiKey = System.getenv('project.curseforge.api')
   project {
