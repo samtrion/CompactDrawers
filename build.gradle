@@ -79,13 +79,14 @@ processResources {
 
 println ${curseforge.state}
 println curseforge.state
+println curseforge_state
 
 curseforge {
-  apiKey = %curseforge.api%
+  apiKey = curseforgeApi
   project {
-    id = %curseforge.modid%
+    id = curseforge_modid
     changelog = ''
-    releaseType = %curseforge.state%
+    releaseType = curseforge_state
     addGameVersion '${minecraft_version}'
   }
 }
