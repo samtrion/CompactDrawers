@@ -82,7 +82,7 @@ curseforge {
   project {
     id = '${env:curseforgeId}'
     changelog = ''
-    releaseType = '${env:curseforgeReleaseType}
+    releaseType = '${env:curseforgeReleaseType}'
     addGameVersion '${minecraft_version}'
   }
 }
