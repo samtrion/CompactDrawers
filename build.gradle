@@ -78,11 +78,11 @@ processResources {
 }
 
 curseforge {
-  apiKey = curseforgeApi
+  apiKey = $env:curseforgeApi
   project {
-    id = curseforge_modid
+    id = $env:curseforgeId
     changelog = ''
-    releaseType = curseforge_state
+    releaseType = $env:curseforgeReleaseType
     addGameVersion '${minecraft_version}'
   }
 }
