@@ -78,11 +78,11 @@ processResources {
 }
 
 curseforge {
-  apiKey = '${env:curseforgeApi}'
+  apiKey = '${System.getProperty("curseforgeApi")}'
   project {
-    id = '${env:curseforgeId}'
+    id = '${System.getProperty("env:curseforgeId")}'
     changelog = ''
-    releaseType = '${env:curseforgeReleaseType}'
+    releaseType = '${System.getProperty("env:curseforgeReleaseType")}'
     addGameVersion '${minecraft_version}'
   }
 }
