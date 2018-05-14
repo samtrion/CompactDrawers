@@ -77,6 +77,10 @@ processResources {
     }
 }
 
+println "${curseforgeApi}"
+println "${curseforgeId}"
+println "${curseforgeReleaseType}"
+
 curseforge {
   apiKey = "${curseforgeApi}"
   project {
