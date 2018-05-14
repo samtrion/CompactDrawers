@@ -77,8 +77,6 @@ processResources {
     }
 }
 
-println curseforgeApi
-
 curseforge {
   apiKey = "${curseforgeApi}"
   project {
