@@ -77,18 +77,12 @@ processResources {
     }
 }
 
-println 'Test Started'
-println $(curseforge.api)
-println $env:curseforge.api
-println %curseforge.api%
-println 'Test ended'
-
 curseforge {
-  apiKey = System.getenv('curseforge.api')
+  apiKey = $(curseforge.api)
   project {
-    id = System.getenv('curseforge.modid')
+    id = $(curseforge.modid)
     changelog = ''
-    releaseType = System.getenv('curseforge.state')
+    releaseType = $(curseforge.state)
     addGameVersion '${minecraft_version}'
   }
 }
