@@ -77,6 +77,9 @@ processResources {
     }
 }
 
+println ${curseforge.state}
+println curseforge.state
+
 curseforge {
   apiKey = %curseforge.api%
   project {
