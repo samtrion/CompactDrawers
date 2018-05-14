@@ -5,10 +5,12 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.10"
     }
 }
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: "com.matthewprenger.cursegradle"
 
 version = "${minecraft_version}-${mod_version}"
 group = mod_namespace // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -72,4 +74,14 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+curseforge {
+  apiKey = '${project.curseforge.api}'
+  project {
+    id = '${project.curseforge.modid}'
+    changelog = ''
+    releaseType = '${project.curseforge.state}'
+    addGameVersion '${minecraft_version}'
+  }
 }
