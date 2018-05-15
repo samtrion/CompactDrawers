@@ -22,6 +22,8 @@ version = "${minecraft_version}-${mod_version}.${number}"
 group = mod_namespace // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_name
 
+Write-Verbose "Creating File Version '$version' for '$archivesBaseName'"
+	
 sourceCompatibility = targetCompatibility = "${java_version}"
 compileJava {
     sourceCompatibility = targetCompatibility = "${java_version}"
@@ -83,23 +85,19 @@ processResources {
 }
 
 curseforge {
-	if (hasProperty('curseforgeApi')) {
-	  apiKey = "${curseforgeApi}"
-	  project {
-	    id = "${curseforgeId}"
-	    changelog = ''
-	    releaseType = "${curseforgeReleaseType}"
-	    addGameVersion "${minecraft_version}"
-	    
-	    mainArtifact(jar) {
-	      relations {
-	        requiredLibrary 'chameleon'
-	        requiredLibrary 'storagedrawers'
-	        optionalLibrary 'jei'
-	      }
-	    }
-	    
-	    addArtifact sourcesJar
-	  }
-  }
+	apiKey = "${curseforgeApi}"
+	project {
+		id = "${curseforgeId}"
+		changelog = ''
+		releaseType = "${curseforgeReleaseType}"
+		addGameVersion "${minecraft_version}"
+		
+		mainArtifact(jar) {
+			relations {
+				requiredLibrary 'chameleon'
+				requiredLibrary 'storagedrawers'
+				optionalLibrary 'jei'
+			}
+		}
+	}
 }
