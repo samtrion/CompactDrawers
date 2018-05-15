@@ -22,7 +22,7 @@ version = "${minecraft_version}-${mod_version}.${number}"
 group = mod_namespace // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_name
 
-Write-Verbose "Creating File Version '$version' for '$archivesBaseName'"
+println "Creating File Version '${version}' for '${archivesBaseName}'"
 	
 sourceCompatibility = targetCompatibility = "${java_version}"
 compileJava {
