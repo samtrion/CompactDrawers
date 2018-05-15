@@ -95,8 +95,9 @@ curseforge {
 		mainArtifact(jar) {
 			relations {
 				requiredLibrary 'chameleon'
-				requiredLibrary 'storagedrawers'
+				requiredLibrary 'storage-drawers'
 				optionalLibrary 'jei'
+				optionalLibrary 'storage-drawers-extras'
 			}
 		}
 	}
