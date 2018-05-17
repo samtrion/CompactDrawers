@@ -1,19 +1,19 @@
 {
     "conditions": [{
         "type": "minecraft:item_exists",
-        "item": "compactdrawers:compact_drawer_2by1"
+        "item": "compactdrawers:compact_drawer_half"
     }],
     "type": "forge:ore_shaped",
     "pattern": [
         "###",
-        "#X#",
-        "ITI"
+        "TXT",
+        "#I#"
     ],
     "key": {
-        "#": { "item": "minecraft:stone", "data": 0 },
+        "#": { "item": "minecraft:stone_slab", "data": 0 },
         "T": { "item": "minecraft:piston" },
-        "X": { "ore": "drawerSlots2", "type": "forge:ore_dict" },
+        "X": { "ore": "drawerBasic", "type": "forge:ore_dict" },
         "I": { "ore": "ingotIron", "type": "forge:ore_dict" }
     },
-    "result": { "item": "compactdrawers:compact_drawer_2by1" }
+    "result": { "item": "compactdrawers:compact_drawer_half" }
 }

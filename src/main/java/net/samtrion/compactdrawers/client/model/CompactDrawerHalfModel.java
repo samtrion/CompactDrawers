@@ -27,17 +27,17 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.util.Constants;
-import net.samtrion.compactdrawers.block.BlockCompactDrawer2By1;
 import net.samtrion.compactdrawers.block.BlockCompactDrawerBase;
-import net.samtrion.compactdrawers.block.EnumCompactDrawer2By1;
+import net.samtrion.compactdrawers.block.BlockCompactDrawerHalf;
+import net.samtrion.compactdrawers.block.EnumCompactDrawerHalf;
 import net.samtrion.compactdrawers.core.ModBlocks;
 
-public final class CompactDrawer2By1Model {
+public final class CompactDrawerHalfModel {
 	public static class Register extends DefaultRegister {
 		
 		@SuppressWarnings("unchecked")
 		public Register() {
-			super(ModBlocks.compactDrawer2By1);
+			super(ModBlocks.compactDrawerHalf);
 		}
 
 		@SuppressWarnings("unchecked")
@@ -45,10 +45,10 @@ public final class CompactDrawer2By1Model {
 		public List<IBlockState> getBlockStates() {
 			List<IBlockState> states = new ArrayList<>();
 
-			for (EnumCompactDrawer2By1 drawer : EnumCompactDrawer2By1.values()) {
+			for (EnumCompactDrawerHalf drawer : EnumCompactDrawerHalf.values()) {
 				for (EnumFacing dir : EnumFacing.HORIZONTALS) {
 					states.add(getBlock().getDefaultState()
-							.withProperty(BlockCompactDrawer2By1.SLOTS, drawer)
+							.withProperty(BlockCompactDrawerHalf.SLOTS, drawer)
 							.withProperty(BlockCompactDrawerBase.FACING, dir));
 				}
 			}
@@ -74,7 +74,7 @@ public final class CompactDrawer2By1Model {
 		@Override
 		protected IBakedModel buildModel(IBlockState state, IBakedModel parent) {
 			try {
-				IDrawerGeometry drawer = (IDrawerGeometry) state.getValue(BlockCompactDrawer2By1.SLOTS);
+				IDrawerGeometry drawer = (IDrawerGeometry) state.getValue(BlockCompactDrawerHalf.SLOTS);
 				EnumFacing dir = state.getValue(BlockCompactDrawerBase.FACING);
 
 				if (!(state instanceof IExtendedBlockState))

@@ -4,7 +4,6 @@ import com.jaquadro.minecraft.chameleon.Chameleon;
 import com.jaquadro.minecraft.chameleon.resources.ModelRegistry;
 import com.jaquadro.minecraft.storagedrawers.StorageDrawers;
 import com.jaquadro.minecraft.storagedrawers.api.storage.EnumBasicDrawer;
-import com.jaquadro.minecraft.storagedrawers.client.renderer.TileEntityDrawersRenderer;
 import com.jaquadro.minecraft.storagedrawers.config.ConfigManager;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -22,15 +21,30 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.samtrion.compactdrawers.CompactDrawers;
 import net.samtrion.compactdrawers.block.BlockCompactDrawer2By1;
+import net.samtrion.compactdrawers.block.BlockCompactDrawer2By1Half;
+import net.samtrion.compactdrawers.block.BlockCompactDrawerBase;
+import net.samtrion.compactdrawers.block.BlockCompactDrawerHalf;
 import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawer2By1;
+import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawer2By1Half;
+import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawerHalf;
+import net.samtrion.compactdrawers.client.model.CompactDrawer2By1HalfModel;
 import net.samtrion.compactdrawers.client.model.CompactDrawer2By1Model;
-import net.samtrion.compactdrawers.item.ItemCompactDrawer2By1;
+import net.samtrion.compactdrawers.client.model.CompactDrawerHalfModel;
+import net.samtrion.compactdrawers.client.model.CompactDrawer2By1Model;
+import net.samtrion.compactdrawers.client.renderer.TileEntityCompactDrawerRenderer;
+import net.samtrion.compactdrawers.item.ItemCompactDrawer;
 
 public class ModBlocks {
-	public static BlockCompactDrawer2By1 compactDrawer2By1;
+	@ObjectHolder(CompactDrawers.MOD_ID + ":compact_drawer_2by1")
+	public static final BlockCompactDrawer2By1 compactDrawer2By1 = null;
+	@ObjectHolder(CompactDrawers.MOD_ID + ":compact_drawer_2by1_half")
+	public static final BlockCompactDrawer2By1Half compactDrawer2By1Half = null;
+	@ObjectHolder(CompactDrawers.MOD_ID + ":compact_drawer_half")
+	public static final BlockCompactDrawerHalf compactDrawerHalf = null;
 
 	@ObjectHolder("storagedrawers:basicdrawers")
 	public static final Block basicDrawer = null;
+
 	@ObjectHolder("storagedrawersextra:extra_drawers")
 	public static final Block extraDrawer = null;
 
@@ -42,47 +56,82 @@ public class ModBlocks {
 		public static void registerBlocks(RegistryEvent.Register<Block> event) {
 			IForgeRegistry<Block> registry = event.getRegistry();
 			if (config.isBlockEnabled("compdrawers")) {
-				compactDrawer2By1 = new BlockCompactDrawer2By1("compact_drawer_2by1", "compactDrawer2By1");
-				registry.registerAll(compactDrawer2By1);
+				registry.register(new BlockCompactDrawer2By1("compact_drawer_2by1", "compactDrawer2By1"));
 				GameRegistry.registerTileEntity(TileEntityCompactDrawer2By1.class,
 						CompactDrawers.MOD_ID + ":compact_drawer_2by1");
+
+				registry.register(new BlockCompactDrawer2By1Half("compact_drawer_2by1_half", "compactDrawer2By1Half"));
+				GameRegistry.registerTileEntity(TileEntityCompactDrawer2By1Half.class,
+						CompactDrawers.MOD_ID + ":compact_drawer_2by1_half");
+				
+				registry.register(new BlockCompactDrawerHalf("compact_drawer_half", "compactDrawerHalf"));
+				GameRegistry.registerTileEntity(TileEntityCompactDrawerHalf.class,
+						CompactDrawers.MOD_ID + ":compact_drawer_half");
 			}
 		}
 
 		@SubscribeEvent
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			IForgeRegistry<Item> registry = event.getRegistry();
-			if (config.isBlockEnabled("compdrawers")) {
-				registry.register(new ItemCompactDrawer2By1(compactDrawer2By1)
-						.setRegistryName(compactDrawer2By1.getRegistryName()));
 
-				registerOreDictionary("drawer2Slots", EnumBasicDrawer.FULL2, EnumBasicDrawer.HALF2);
-				// registerOreDictionary("drawer4Slots", EnumBasicDrawer.FULL4, EnumBasicDrawer.HALF4);
-			}
-
+			registerCompactDrawerItem(registry, compactDrawer2By1);
+			registerCompactDrawerItem(registry, compactDrawer2By1Half);
+			registerCompactDrawerItem(registry, compactDrawerHalf);
+			
+			registerOreDictionary("drawerSlots2", EnumBasicDrawer.FULL2, EnumBasicDrawer.HALF2);
 		}
-
-		private static void registerOreDictionary(String key, EnumBasicDrawer... types) {
-			for (EnumBasicDrawer type : types) {
-				OreDictionary.registerOre(key, new ItemStack(basicDrawer, 1, type.getMetadata()));
-				if (extraDrawer != null) {
-					OreDictionary.registerOre(key, new ItemStack(extraDrawer, 1, type.getMetadata()));
-				}
+		
+		private static void registerCompactDrawerItem(IForgeRegistry<Item> registry, BlockCompactDrawerBase block) {
+			if (block != null) {
+				registry.register(new ItemCompactDrawer(block)
+						.setRegistryName(block.getRegistryName()));
 			}
 		}
 
 		@SubscribeEvent
 		@SideOnly(Side.CLIENT)
 		public static void registerModels(ModelRegistryEvent event) {
-			if (config.isBlockEnabled("compdrawers")) {
-				compactDrawer2By1.initDynamic();
+			ModelRegistry modelRegistry = Chameleon.instance.modelRegistry;
 
-				ModelRegistry modelRegistry = Chameleon.instance.modelRegistry;
+			if (compactDrawer2By1 != null) {
+				compactDrawer2By1.initDynamic();
 				modelRegistry.registerModel(new CompactDrawer2By1Model.Register());
 
 				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCompactDrawer2By1.class,
-						new TileEntityDrawersRenderer());
+						new TileEntityCompactDrawerRenderer());
 			}
+
+			if (compactDrawer2By1Half != null) {
+				compactDrawer2By1Half.initDynamic();
+				modelRegistry.registerModel(new CompactDrawer2By1HalfModel.Register());
+
+				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCompactDrawer2By1Half.class,
+						new TileEntityCompactDrawerRenderer());
+			}
+			
+			if (compactDrawerHalf != null) {
+				compactDrawerHalf.initDynamic();
+				modelRegistry.registerModel(new CompactDrawerHalfModel.Register());
+
+				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCompactDrawerHalf.class,
+						new TileEntityCompactDrawerRenderer());
+			}
+		}
+
+		private static void registerOreDictionary(String key, EnumBasicDrawer... types) {
+			for (EnumBasicDrawer type : types) {
+				int meta = type.getMetadata();
+
+				registerOreDictionary(key, basicDrawer, meta);
+				registerOreDictionary(key, extraDrawer, meta);
+			}
+		}
+
+		private static void registerOreDictionary(String key, Block block, int meta) {
+			if (block == null) {
+				return;
+			}
+			OreDictionary.registerOre(key, new ItemStack(block, 1, meta));
 		}
 	}
 }

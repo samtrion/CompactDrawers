@@ -14,22 +14,23 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawer2By1;
+import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawer2By1Half;
 import net.samtrion.compactdrawers.core.ModConfig;
 
-public class BlockCompactDrawer2By1 extends BlockCompactDrawerBase {
+public class BlockCompactDrawer2By1Half extends BlockCompactDrawerBase {
 	@SuppressWarnings("rawtypes")
-	public static PropertyEnum SLOTS = PropertyEnum.create("slots", EnumCompactDrawer2By1.class);
+	public static PropertyEnum SLOTS = PropertyEnum.create("slots", EnumCompactDrawer2By1Half.class);
 
-	public BlockCompactDrawer2By1(String registryName, String blockName) {
-		super(registryName, blockName, ModConfig.StorageFactorCompactDrawer2By1);
+	public BlockCompactDrawer2By1Half(String registryName, String blockName) {
+		super(registryName, blockName, ModConfig.StorageFactorCompactDrawer2By1Half);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initDefaultState() {
 		super.initDefaultState();
-		setDefaultState(blockState.getBaseState().withProperty(SLOTS, EnumCompactDrawer2By1.OPEN1).withProperty(FACING,
-				EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(SLOTS, EnumCompactDrawer2By1Half.OPEN1)
+				.withProperty(FACING, EnumFacing.NORTH));
 	}
 
 	@Override
@@ -55,11 +56,11 @@ public class BlockCompactDrawer2By1 extends BlockCompactDrawerBase {
 			return state;
 		}
 
-		EnumCompactDrawer2By1 slots;
+		EnumCompactDrawer2By1Half slots;
 		if (tile.getDrawer(1).isEnabled()) {
-			slots = EnumCompactDrawer2By1.OPEN2;
+			slots = EnumCompactDrawer2By1Half.OPEN2;
 		} else {
-			slots = EnumCompactDrawer2By1.OPEN1;
+			slots = EnumCompactDrawer2By1Half.OPEN1;
 		}
 
 		return super.getActualState(state, world, pos).withProperty(SLOTS, slots);
@@ -67,6 +68,6 @@ public class BlockCompactDrawer2By1 extends BlockCompactDrawerBase {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityCompactDrawer2By1();
+		return new TileEntityCompactDrawer2By1Half();
 	}
 }

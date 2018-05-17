@@ -1,43 +1,47 @@
 package net.samtrion.compactdrawers.block;
 
-import com.jaquadro.minecraft.storagedrawers.StorageDrawers;
-import com.jaquadro.minecraft.storagedrawers.api.storage.INetworked;
 import com.jaquadro.minecraft.storagedrawers.block.BlockDrawers;
 import com.jaquadro.minecraft.storagedrawers.block.dynamic.StatusModelData;
+import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers;
+import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawersComp;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.samtrion.compactdrawers.CompactDrawers;
+import net.samtrion.compactdrawers.core.ModConfig;
 
-public abstract class BlockCompactDrawerBase extends BlockDrawers implements INetworked {
+public abstract class BlockCompactDrawerBase extends BlockDrawers {
 
-	public static PropertyEnum SLOTS;
-
-	private final int drawerCount;
 	private final String registryName;
-	
-    @SideOnly(Side.CLIENT)
-    private StatusModelData statusInfo;
+	private final double factor;
 
-	protected BlockCompactDrawerBase(String registryName, String blockName, int drawerCount) {
+	@SideOnly(Side.CLIENT)
+	private StatusModelData statusInfo;
+
+	protected BlockCompactDrawerBase(String registryName, String blockName, double factor) {
 		super(Material.ROCK, registryName, checkBlockName(blockName));
 		setSoundType(SoundType.STONE);
 		this.registryName = registryName;
-		this.drawerCount = drawerCount;
+		this.factor = factor;
 	}
 
 	private static String checkBlockName(String blockName) {
-		return (blockName.startsWith(CompactDrawers.MOD_ID + ".") ? blockName : CompactDrawers.MOD_ID + "." + blockName).toLowerCase();
+		return (blockName.startsWith(CompactDrawers.MOD_ID + ".") ? blockName : CompactDrawers.MOD_ID + "." + blockName)
+				.toLowerCase();
+	}
+	
+	public String getName() {
+		return this.registryName;
 	}
 
 	@Override
@@ -45,30 +49,75 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers implements INe
 		return 0;
 	}
 
-	@Override
-	public int getDrawerCount(IBlockState state) {
-		return this.drawerCount;
-	}
-
-	@Override
-	public boolean isHalfDepth(IBlockState state) {
-		return false;
+	public int getDrawerBaseStorage() {
+		return (int) (ModConfig.BaseStorageCompactDrawer * this.factor);
 	}
 
 	@Override
 	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		list.add(new ItemStack(this, 1, 0));
 	}
-	
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void initDynamic () {
-        ResourceLocation location = new ResourceLocation(CompactDrawers.MOD_ID + ":models/dynamic/" + this.registryName + ".json");
-        statusInfo = new StatusModelData(this.drawerCount, location);
-    }
-	
+
 	@Override
-    public StatusModelData getStatusInfo (IBlockState state) {
-        return statusInfo;
-    }
+	@SideOnly(Side.CLIENT)
+	public void initDynamic() {
+		ResourceLocation location = new ResourceLocation(
+				CompactDrawers.MOD_ID + ":models/dynamic/" + this.registryName + ".json");
+
+		IBlockState state = this.getDefaultState();
+		statusInfo = new StatusModelData(getDrawerCount(state), location);
+	}
+
+	@Override
+	public StatusModelData getStatusInfo(IBlockState state) {
+		return statusInfo;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return isOpaqueCube(state);
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return !isHalfDepth(state);
+	}
+
+	@Override
+	public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face) {
+		if (isFullCube(state)) {
+			return true;
+		}
+		TileEntityDrawers tile = getTileEntity(world, pos);
+		return (tile != null && tile.getDirection() == face.getOpposite().getIndex());
+	}
+
+	@Override
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		if (isFullCube(state)) {
+			return true;
+		}
+		TileEntityDrawers tile = getTileEntity(blockAccess, pos);
+		if (tile != null && tile.getDirection() == side.getIndex())
+			return true;
+		return super.shouldSideBeRendered(state, blockAccess, pos, side);
+	}
+
+	@Override
+	protected int getDrawerSlot(int drawerCount, int side, float hitX, float hitY, float hitZ) {
+		if (drawerCount == 2 && !hitTop(hitY)) {
+			return 1;
+		} else if (drawerCount == 3) {
+			if (!hitTop(hitY)) {
+				return hitLeft(side, hitX, hitZ) ? 1 : 2;
+			}
+		} else if (drawerCount == 4) {
+			if (!hitTop(hitY)) {
+				return hitLeft(side, hitX, hitZ) ? 2 : 3;
+			} else if (!hitLeft(side, hitX, hitZ)) {
+				return 1;
+			}
+		}
+		return 0;
+	}
 }

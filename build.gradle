@@ -36,7 +36,8 @@ minecraft {
 	} else {
 		runDir = 'run';
 	}
-    mappings = forge_mappings
+    mappings = forge_mappings    
+	makeObfSourceJar = false
 	
 	replace '@VERSION', project.version
 }
@@ -84,15 +85,38 @@ processResources {
     }
 }
 
-curseforge {
-	apiKey = "${curseforgeApi}"
-	project {
-		id = "${curseforgeId}"
-		changelog = ''
-		releaseType = "${curseforgeReleaseType}"
-		addGameVersion "${minecraft_version}"
-		
-		mainArtifact(jar) {
+task srcJar(type: Jar) {
+    from sourceSets.main.allSource
+	
+	extension = 'jar'
+	classifier = 'src'
+}
+
+task devJar(type: Jar, dependsOn: 'classes') {
+    from(sourceSets.main.output) {
+        include '**'
+    }
+
+    extension = 'jar'
+    classifier = 'dev'
+}
+
+artifacts {
+    archives srcJar, devJar
+}
+
+if (project.hasProperty('curseforgeApi')) {
+	curseforge {
+		apiKey = "${curseforgeApi}"
+		project {
+			id = "${curseforgeId}"
+			changelog = ''
+			releaseType = "${curseforgeReleaseType}"
+			addGameVersion "${minecraft_version}"
+			
+			addArtifact devJar
+			addArtifact srcJar
+			
 			relations {
 				requiredLibrary 'chameleon'
 				requiredLibrary 'storage-drawers'
