@@ -8,7 +8,7 @@
   "url": "",
   "updateUrl": "",
   "authorList": ["samtrion"],
-  "credits": "By samtrion",
+  "credits": "jaquadro, for creating Storage Drawers",
   "logoFile": "",
   "requiredMods": [ "forge", "chameleon", "storagedrawers" ],
   "dependencies": [ "chameleon", "storagedrawers" ],
