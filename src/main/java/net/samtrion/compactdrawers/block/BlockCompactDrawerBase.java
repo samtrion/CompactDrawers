@@ -3,7 +3,6 @@ package net.samtrion.compactdrawers.block;
 import com.jaquadro.minecraft.storagedrawers.block.BlockDrawers;
 import com.jaquadro.minecraft.storagedrawers.block.dynamic.StatusModelData;
 import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers;
-import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawersComp;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

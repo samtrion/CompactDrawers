@@ -14,7 +14,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawerHalf;
+import net.samtrion.compactdrawers.tile.TileEntityCompactDrawerHalf;
 import net.samtrion.compactdrawers.core.ModConfig;
 
 public class BlockCompactDrawerHalf extends BlockCompactDrawerBase {

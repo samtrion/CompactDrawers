@@ -2,9 +2,7 @@ package net.samtrion.compactdrawers.block;
 
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGeometry;
 
-import net.minecraft.util.IStringSerializable;
-
-public enum EnumCompactDrawerHalf implements IDrawerGeometry, IStringSerializable
+public enum EnumCompactDrawerHalf implements IDrawerGeometry, IDrawerSerializable
 {
     OPEN1(0, 1, "open1"),
     OPEN2(1, 2, "open2"),
@@ -32,6 +30,7 @@ public enum EnumCompactDrawerHalf implements IDrawerGeometry, IStringSerializabl
         return 3;
     }
 
+    @Override
     public int getMetadata () {
         return meta;
     }

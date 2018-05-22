@@ -3,11 +3,9 @@ package net.samtrion.compactdrawers.core;
 import com.jaquadro.minecraft.chameleon.Chameleon;
 import com.jaquadro.minecraft.chameleon.resources.ModelRegistry;
 import com.jaquadro.minecraft.storagedrawers.StorageDrawers;
-import com.jaquadro.minecraft.storagedrawers.api.storage.EnumBasicDrawer;
 import com.jaquadro.minecraft.storagedrawers.config.ConfigManager;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -17,20 +15,22 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.samtrion.compactdrawers.CompactDrawers;
 import net.samtrion.compactdrawers.block.BlockCompactDrawer2By1;
 import net.samtrion.compactdrawers.block.BlockCompactDrawer2By1Half;
 import net.samtrion.compactdrawers.block.BlockCompactDrawerBase;
 import net.samtrion.compactdrawers.block.BlockCompactDrawerHalf;
-import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawer2By1;
-import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawer2By1Half;
-import net.samtrion.compactdrawers.block.tile.TileEntityCompactDrawerHalf;
+import net.samtrion.compactdrawers.block.EnumCompactDrawer2By1;
+import net.samtrion.compactdrawers.block.EnumCompactDrawer2By1Half;
+import net.samtrion.compactdrawers.block.EnumCompactDrawerHalf;
+import net.samtrion.compactdrawers.block.IDrawerSerializable;
+import net.samtrion.compactdrawers.tile.TileEntityCompactDrawer2By1;
+import net.samtrion.compactdrawers.tile.TileEntityCompactDrawer2By1Half;
+import net.samtrion.compactdrawers.tile.TileEntityCompactDrawerHalf;
 import net.samtrion.compactdrawers.client.model.CompactDrawer2By1HalfModel;
 import net.samtrion.compactdrawers.client.model.CompactDrawer2By1Model;
 import net.samtrion.compactdrawers.client.model.CompactDrawerHalfModel;
-import net.samtrion.compactdrawers.client.model.CompactDrawer2By1Model;
 import net.samtrion.compactdrawers.client.renderer.TileEntityCompactDrawerRenderer;
 import net.samtrion.compactdrawers.item.ItemCompactDrawer;
 
@@ -74,14 +74,14 @@ public class ModBlocks {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			IForgeRegistry<Item> registry = event.getRegistry();
 
-			registerCompactDrawerItem(registry, compactDrawer2By1);
-			registerCompactDrawerItem(registry, compactDrawer2By1Half);
-			registerCompactDrawerItem(registry, compactDrawerHalf);
+			registerCompactDrawerItem(registry, EnumCompactDrawer2By1.values(), compactDrawer2By1);
+			registerCompactDrawerItem(registry, EnumCompactDrawer2By1Half.values(), compactDrawer2By1Half);
+			registerCompactDrawerItem(registry, EnumCompactDrawerHalf.values(), compactDrawerHalf);
 		}
 
-		private static void registerCompactDrawerItem(IForgeRegistry<Item> registry, BlockCompactDrawerBase block) {
+		private static void registerCompactDrawerItem(IForgeRegistry<Item> registry, IDrawerSerializable[] drawerValues, BlockCompactDrawerBase block) {
 			if (block != null) {
-				registry.register(new ItemCompactDrawer(block).setRegistryName(block.getRegistryName()));
+				registry.register(new ItemCompactDrawer(block, drawerValues).setRegistryName(block.getRegistryName()));
 			}
 		}
 

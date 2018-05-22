@@ -1,4 +1,4 @@
-package net.samtrion.compactdrawers.block.tile;
+package net.samtrion.compactdrawers.tile;
 
 import net.samtrion.compactdrawers.core.ModConfig;
 

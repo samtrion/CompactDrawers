@@ -1,4 +1,4 @@
-package net.samtrion.compactdrawers.block.tile;
+package net.samtrion.compactdrawers.tile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -8,7 +8,6 @@ import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerAttributes;
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGroup;
 import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers;
 import com.jaquadro.minecraft.storagedrawers.block.tile.tiledata.FractionalDrawerGroup;
-import com.jaquadro.minecraft.storagedrawers.config.ConfigManager;
 import com.jaquadro.minecraft.storagedrawers.network.CountUpdateMessage;
 
 import net.minecraft.client.Minecraft;
@@ -138,6 +137,7 @@ public abstract class TileEntityCompactDrawerBase extends TileEntityDrawers {
 
 		}
 
+		@SuppressWarnings("unchecked")
 		@Nullable
 		@Override
 		public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {

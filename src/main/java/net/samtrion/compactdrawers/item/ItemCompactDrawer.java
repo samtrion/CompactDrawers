@@ -10,7 +10,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.jaquadro.minecraft.chameleon.resources.IItemMeshMapper;
 import com.jaquadro.minecraft.chameleon.resources.IItemVariantProvider;
-import com.jaquadro.minecraft.storagedrawers.StorageDrawers;
 import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
@@ -31,14 +30,16 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.samtrion.compactdrawers.CompactDrawers;
 import net.samtrion.compactdrawers.block.BlockCompactDrawerBase;
-import net.samtrion.compactdrawers.block.EnumCompactDrawer2By1;
+import net.samtrion.compactdrawers.block.IDrawerSerializable;
 
 public class ItemCompactDrawer extends ItemBlock implements IItemMeshMapper, IItemVariantProvider {
 	private final BlockCompactDrawerBase block;
+	private final IDrawerSerializable[] drawerValues;
 
-	public ItemCompactDrawer(BlockCompactDrawerBase block) {
+	public ItemCompactDrawer(BlockCompactDrawerBase block, IDrawerSerializable[] drawerValues) {
 		super(block);
 		this.block = block;
+		this.drawerValues = drawerValues;
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class ItemCompactDrawer extends ItemBlock implements IItemMeshMapper, IIt
 		ResourceLocation location = ForgeRegistries.ITEMS.getKey(this);
 		List<ResourceLocation> variants = new ArrayList<ResourceLocation>();
 
-		for (EnumCompactDrawer2By1 type : EnumCompactDrawer2By1.values()) {
+		for (IDrawerSerializable type : this.drawerValues) {
 			variants.add(new ResourceLocation(location.getResourceDomain(),
 					location.getResourcePath() + '_' + type.getName()));
 		}
@@ -58,7 +59,7 @@ public class ItemCompactDrawer extends ItemBlock implements IItemMeshMapper, IIt
 	public List<Pair<ItemStack, ModelResourceLocation>> getMeshMappings() {
 		List<Pair<ItemStack, ModelResourceLocation>> mappings = new ArrayList<Pair<ItemStack, ModelResourceLocation>>();
 
-		for (EnumCompactDrawer2By1 type : EnumCompactDrawer2By1.values()) {
+		for (IDrawerSerializable type : this.drawerValues) {
 			ModelResourceLocation location = new ModelResourceLocation(
 					CompactDrawers.MOD_ID + ":" + this.block.getName() + "_" + type.getName(), "inventory");
 			mappings.add(Pair.of(new ItemStack(this, 1, type.getMetadata()), location));
