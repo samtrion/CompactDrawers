@@ -1,7 +1,7 @@
 [
 {
   "modid": "compactdrawers",
-  "name": "CompactDrawers",
+  "name": "Compact Drawers",
   "description": "Storage Drawer Extension with more compact drawers",
   "version": "${version}",
   "mcversion": "${mcversion}",
