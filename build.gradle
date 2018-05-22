@@ -39,7 +39,7 @@ minecraft {
     mappings = forge_mappings    
 	makeObfSourceJar = false
 	
-	replace '@VERSION', project.version
+	replace '@VERSION@', project.version
 }
 
 repositories {
