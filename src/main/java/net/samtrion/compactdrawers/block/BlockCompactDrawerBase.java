@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.samtrion.compactdrawers.CompactDrawers;
 import net.samtrion.compactdrawers.core.ModConfig;
+import net.samtrion.compactdrawers.item.ItemCompactDrawer;
 
 public abstract class BlockCompactDrawerBase extends BlockDrawers {
 
@@ -39,7 +40,7 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
 		return (blockName.startsWith(CompactDrawers.MOD_ID + ".") ? blockName : CompactDrawers.MOD_ID + "." + blockName)
 				.toLowerCase();
 	}
-	
+
 	public String getName() {
 		return this.registryName;
 	}
@@ -55,7 +56,7 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
 
 	@Override
 	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-		list.add(new ItemStack(this, 1, 0));
+		list.add(ItemCompactDrawer.createStackWithNBT(new ItemStack(this, 1, 0)));
 	}
 
 	@Override
@@ -98,8 +99,9 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
 			return true;
 		}
 		TileEntityDrawers tile = getTileEntity(blockAccess, pos);
-		if (tile != null && tile.getDirection() == side.getIndex())
+		if (tile != null && tile.getDirection() == side.getIndex()) {
 			return true;
+		}
 		return super.shouldSideBeRendered(state, blockAccess, pos, side);
 	}
 

@@ -21,6 +21,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -100,5 +101,22 @@ public class ItemCompactDrawer extends ItemBlock implements IItemMeshMapper, IIt
 		if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("tile")) {
 			list.add(ChatFormatting.YELLOW + I18n.format("storagedrawers.drawers.sealed"));
 		}
+	}
+	
+	@Override
+	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+		super.onCreated(stack, worldIn, playerIn);
+		createStackWithNBT(stack);
+	}
+
+	public static ItemStack createStackWithNBT(ItemStack stack) {
+		NBTTagCompound tag = stack.getTagCompound();
+
+		if (tag == null) {
+			tag = new NBTTagCompound();
+			stack.setTagCompound(tag);
+		}
+
+		return stack;
 	}
 }

@@ -12,7 +12,7 @@
     "key": {
         "#": { "item": "minecraft:stone", "data": 0 },
         "T": { "item": "minecraft:piston" },
-        "X": { "ore": "drawerSlots2", "type": "forge:ore_dict" },
+        "X": { "ore": "drawerBasic", "type": "forge:ore_dict" },
         "I": { "ore": "ingotIron", "type": "forge:ore_dict" }
     },
     "result": { "item": "compactdrawers:compact_drawer_2by1" }

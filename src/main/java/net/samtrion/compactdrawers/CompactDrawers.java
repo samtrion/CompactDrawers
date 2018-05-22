@@ -7,7 +7,7 @@ public class CompactDrawers {
 	public static final String MOD_ID = "compactdrawers";
 	public static final String MOD_NAME = "Compact Drawers";
 	public static final String MOD_VERSION = "@VERSION@";
-	public static final String MOD_DEPENDENCIES = "required-after:storagedrawers;required-after:chameleon;after:waila;";
+	public static final String MOD_DEPENDENCIES = "required-after:storagedrawers;required-after:chameleon;";
 
 	@Mod.Instance(MOD_ID)
 	public static CompactDrawers instance;

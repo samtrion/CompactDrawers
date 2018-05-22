@@ -63,7 +63,7 @@ public class ModBlocks {
 				registry.register(new BlockCompactDrawer2By1Half("compact_drawer_2by1_half", "compactDrawer2By1Half"));
 				GameRegistry.registerTileEntity(TileEntityCompactDrawer2By1Half.class,
 						CompactDrawers.MOD_ID + ":compact_drawer_2by1_half");
-				
+
 				registry.register(new BlockCompactDrawerHalf("compact_drawer_half", "compactDrawerHalf"));
 				GameRegistry.registerTileEntity(TileEntityCompactDrawerHalf.class,
 						CompactDrawers.MOD_ID + ":compact_drawer_half");
@@ -77,14 +77,11 @@ public class ModBlocks {
 			registerCompactDrawerItem(registry, compactDrawer2By1);
 			registerCompactDrawerItem(registry, compactDrawer2By1Half);
 			registerCompactDrawerItem(registry, compactDrawerHalf);
-			
-			registerOreDictionary("drawerSlots2", EnumBasicDrawer.FULL2, EnumBasicDrawer.HALF2);
 		}
-		
+
 		private static void registerCompactDrawerItem(IForgeRegistry<Item> registry, BlockCompactDrawerBase block) {
 			if (block != null) {
-				registry.register(new ItemCompactDrawer(block)
-						.setRegistryName(block.getRegistryName()));
+				registry.register(new ItemCompactDrawer(block).setRegistryName(block.getRegistryName()));
 			}
 		}
 
@@ -108,7 +105,7 @@ public class ModBlocks {
 				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCompactDrawer2By1Half.class,
 						new TileEntityCompactDrawerRenderer());
 			}
-			
+
 			if (compactDrawerHalf != null) {
 				compactDrawerHalf.initDynamic();
 				modelRegistry.registerModel(new CompactDrawerHalfModel.Register());
@@ -118,20 +115,5 @@ public class ModBlocks {
 			}
 		}
 
-		private static void registerOreDictionary(String key, EnumBasicDrawer... types) {
-			for (EnumBasicDrawer type : types) {
-				int meta = type.getMetadata();
-
-				registerOreDictionary(key, basicDrawer, meta);
-				registerOreDictionary(key, extraDrawer, meta);
-			}
-		}
-
-		private static void registerOreDictionary(String key, Block block, int meta) {
-			if (block == null) {
-				return;
-			}
-			OreDictionary.registerOre(key, new ItemStack(block, 1, meta));
-		}
 	}
 }
