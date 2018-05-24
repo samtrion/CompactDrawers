@@ -31,11 +31,7 @@ compileJava {
 
 minecraft {
     version = forge_version
-	if (file('../run').exists()) {
-		runDir = '../run';
-	} else {
-		runDir = 'run';
-	}
+    runDir = "run" 
     mappings = forge_mappings    
 	makeObfSourceJar = false
 	
