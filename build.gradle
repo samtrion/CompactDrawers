@@ -30,12 +30,13 @@ compileJava {
 }
 
 minecraft {
-    version = forge_version
+    version = "${minecraft_version}-${forge_version}"
     runDir = "run" 
     mappings = forge_mappings    
 	makeObfSourceJar = false
 	
 	replace '@VERSION@', project.version
+	replace "required-after:forge;", "required-after:forge@(${forge_version},);"
 }
 
 repositories {

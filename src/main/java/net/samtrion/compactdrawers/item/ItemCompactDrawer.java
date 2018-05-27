@@ -103,7 +103,7 @@ public class ItemCompactDrawer extends ItemBlock implements IItemMeshMapper, IIt
 			list.add(ChatFormatting.YELLOW + I18n.format("storagedrawers.drawers.sealed"));
 		}
 	}
-	
+
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
 		super.onCreated(stack, worldIn, playerIn);

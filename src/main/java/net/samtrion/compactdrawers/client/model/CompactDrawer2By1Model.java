@@ -34,7 +34,7 @@ import net.samtrion.compactdrawers.core.ModBlocks;
 
 public final class CompactDrawer2By1Model {
 	public static class Register extends DefaultRegister {
-		
+
 		@SuppressWarnings("unchecked")
 		public Register() {
 			super(ModBlocks.compactDrawer2By1);
@@ -47,8 +47,7 @@ public final class CompactDrawer2By1Model {
 
 			for (EnumCompactDrawer2By1 drawer : EnumCompactDrawer2By1.values()) {
 				for (EnumFacing dir : EnumFacing.HORIZONTALS) {
-					states.add(getBlock().getDefaultState()
-							.withProperty(BlockCompactDrawer2By1.SLOTS, drawer)
+					states.add(getBlock().getDefaultState().withProperty(BlockCompactDrawer2By1.SLOTS, drawer)
 							.withProperty(BlockCompactDrawerBase.FACING, dir));
 				}
 			}

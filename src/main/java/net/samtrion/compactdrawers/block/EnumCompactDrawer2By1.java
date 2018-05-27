@@ -3,8 +3,7 @@ package net.samtrion.compactdrawers.block;
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGeometry;
 
 public enum EnumCompactDrawer2By1 implements IDrawerGeometry, IDrawerSerializable {
-	OPEN1(0, 2, "open1"),
-	OPEN2(1, 1, "open2");
+	OPEN1(0, 2, "open1"), OPEN2(1, 1, "open2");
 
 	private static final EnumCompactDrawer2By1[] META_LOOKUP;
 

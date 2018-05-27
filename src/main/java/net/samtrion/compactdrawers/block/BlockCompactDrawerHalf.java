@@ -36,7 +36,7 @@ public class BlockCompactDrawerHalf extends BlockCompactDrawerBase {
 	protected BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { SLOTS, FACING }, new IUnlistedProperty[] { STATE_MODEL });
 	}
-	
+
 	@Override
 	public int getDrawerCount(IBlockState state) {
 		return ((IDrawerGeometry) state.getValue(SLOTS)).getDrawerCount();
@@ -56,10 +56,10 @@ public class BlockCompactDrawerHalf extends BlockCompactDrawerBase {
 		}
 
 		EnumCompactDrawerHalf slots = EnumCompactDrawerHalf.OPEN1;
-        if (tile.getDrawer(1).isEnabled())
-            slots = EnumCompactDrawerHalf.OPEN2;
-        if (tile.getDrawer(2).isEnabled())
-            slots = EnumCompactDrawerHalf.OPEN3;
+		if (tile.getDrawer(1).isEnabled())
+			slots = EnumCompactDrawerHalf.OPEN2;
+		if (tile.getDrawer(2).isEnabled())
+			slots = EnumCompactDrawerHalf.OPEN3;
 
 		return super.getActualState(state, world, pos).withProperty(SLOTS, slots);
 	}

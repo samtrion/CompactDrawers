@@ -7,7 +7,6 @@ public final class ModConfig {
 	public static final double StorageFactorCompactDrawer2By1Half = .75;
 	public static final double StorageFactorCompactDrawerHalf = .5;
 	public static final int BaseStorageCompactDrawer;
-	
 
 	static {
 		int baseCompDrawers = StorageDrawers.config.getBlockBaseStorage("compdrawers");

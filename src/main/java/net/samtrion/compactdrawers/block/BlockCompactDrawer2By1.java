@@ -36,7 +36,7 @@ public class BlockCompactDrawer2By1 extends BlockCompactDrawerBase {
 	protected BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { SLOTS, FACING }, new IUnlistedProperty[] { STATE_MODEL });
 	}
-	
+
 	@Override
 	public int getDrawerCount(IBlockState state) {
 		return ((IDrawerGeometry) state.getValue(SLOTS)).getDrawerCount();

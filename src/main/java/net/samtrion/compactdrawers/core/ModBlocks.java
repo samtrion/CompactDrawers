@@ -79,7 +79,8 @@ public class ModBlocks {
 			registerCompactDrawerItem(registry, EnumCompactDrawerHalf.values(), compactDrawerHalf);
 		}
 
-		private static void registerCompactDrawerItem(IForgeRegistry<Item> registry, IDrawerSerializable[] drawerValues, BlockCompactDrawerBase block) {
+		private static void registerCompactDrawerItem(IForgeRegistry<Item> registry, IDrawerSerializable[] drawerValues,
+				BlockCompactDrawerBase block) {
 			if (block != null) {
 				registry.register(new ItemCompactDrawer(block, drawerValues).setRegistryName(block.getRegistryName()));
 			}
