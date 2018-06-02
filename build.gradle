@@ -106,7 +106,7 @@ if (project.hasProperty('curseforgeApi')) {
 	curseforge {
 		apiKey = "${curseforgeApi}"
 		project {
-			id = 293968
+			id = '293968'
 			changelog = "https://github.com/Samtrion/${mod_id}/blob/${minecraft_version}/CHANGELOG.md"
 			releaseType = "${curseforgeReleaseType}"
 			addGameVersion "${minecraft_version}"
