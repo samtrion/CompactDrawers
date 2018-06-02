@@ -19,9 +19,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.samtrion.compactdrawers.core.ModConfig;
 
 public abstract class TileEntityCompactDrawerBase extends TileEntityDrawers {
+	
 	@CapabilityInject(IDrawerAttributes.class)
 	static Capability<IDrawerAttributes> DRAWER_ATTRIBUTES_CAPABILITY = null;
 
@@ -30,18 +30,14 @@ public abstract class TileEntityCompactDrawerBase extends TileEntityDrawers {
 	private final int drawerCount;
 	private final String name;
 
-	protected TileEntityCompactDrawerBase(int drawerCount, String name, double factor) {
+	protected TileEntityCompactDrawerBase(int drawerCount, String name, int drawerCapacity) {
 		this.drawerCount = drawerCount;
 		this.name = name;
-		this.capacity = calcCapacity(factor);
+		this.capacity = drawerCapacity;
 
 		groupData = new GroupData(this.drawerCount, this);
 		groupData.setCapabilityProvider(this);
 		injectPortableData(groupData);
-	}
-
-	private int calcCapacity(double factor) {
-		return (int) (ModConfig.BaseStorageCompactDrawer * factor);
 	}
 
 	@Override

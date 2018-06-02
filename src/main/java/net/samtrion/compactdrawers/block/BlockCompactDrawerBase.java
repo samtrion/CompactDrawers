@@ -17,22 +17,21 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.samtrion.compactdrawers.CompactDrawers;
-import net.samtrion.compactdrawers.core.ModConfig;
 import net.samtrion.compactdrawers.item.ItemCompactDrawer;
 
 public abstract class BlockCompactDrawerBase extends BlockDrawers {
 
 	private final String registryName;
-	private final double factor;
+	private final int drawerCapacity;
 
 	@SideOnly(Side.CLIENT)
 	private StatusModelData statusInfo;
 
-	protected BlockCompactDrawerBase(String registryName, String blockName, double factor) {
+	protected BlockCompactDrawerBase(String registryName, String blockName, int drawerCapacity) {
 		super(Material.ROCK, registryName, checkBlockName(blockName));
 		setSoundType(SoundType.STONE);
 		this.registryName = registryName;
-		this.factor = factor;
+		this.drawerCapacity = drawerCapacity;
 	}
 
 	private static String checkBlockName(String blockName) {
@@ -50,7 +49,7 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
 	}
 
 	public int getDrawerBaseStorage() {
-		return (int) (ModConfig.BaseStorageCompactDrawer * this.factor);
+		return this.drawerCapacity;
 	}
 
 	@Override

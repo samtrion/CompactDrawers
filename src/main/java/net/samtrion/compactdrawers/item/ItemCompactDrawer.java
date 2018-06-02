@@ -112,10 +112,8 @@ public class ItemCompactDrawer extends ItemBlock implements IItemMeshMapper, IIt
 
 	public static ItemStack createStackWithNBT(ItemStack stack) {
 		NBTTagCompound tag = stack.getTagCompound();
-
 		if (tag == null) {
-			tag = new NBTTagCompound();
-			stack.setTagCompound(tag);
+			stack.setTagCompound(new NBTTagCompound());
 		}
 
 		return stack;

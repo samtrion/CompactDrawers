@@ -22,7 +22,7 @@ public class BlockCompactDrawerHalf extends BlockCompactDrawerBase {
 	public static PropertyEnum SLOTS = PropertyEnum.create("slots", EnumCompactDrawerHalf.class);
 
 	public BlockCompactDrawerHalf(String registryName, String blockName) {
-		super(registryName, blockName, ModConfig.StorageFactorCompactDrawerHalf);
+		super(registryName, blockName, ModConfig.drawerHalf.capacity);
 	}
 
 	@Override

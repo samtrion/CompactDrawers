@@ -97,26 +97,5 @@ public final class CompactDrawer2By1Model {
 		}
 	}
 
-	private static class ItemHandler extends ItemOverrideList {
-		public ItemHandler() {
-			super(ImmutableList.<ItemOverride>of());
-		}
-
-		@Override
-		public IBakedModel handleItemState(IBakedModel parent, @Nonnull ItemStack stack, World world,
-				EntityLivingBase entity) {
-			if (stack.isEmpty())
-				return parent;
-
-			if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("tile", Constants.NBT.TAG_COMPOUND))
-				return parent;
-
-			Block block = Block.getBlockFromItem(stack.getItem());
-			IBlockState state = block.getStateFromMeta(stack.getMetadata());
-
-			return new DrawerSealedModel(parent, state, true);
-		}
-	}
-
 	private static final ItemHandler itemHandler = new ItemHandler();
 }

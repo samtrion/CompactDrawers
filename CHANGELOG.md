@@ -1,4 +1,5 @@
 **Version 1.0.2**
++ ADDED: Config Option for each drawer
 + FIXED: TileEntityCompactDrawerRender NPE
 
 **Version 1.0.1**

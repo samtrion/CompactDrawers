@@ -2,8 +2,7 @@ package net.samtrion.compactdrawers.core;
 
 import com.jaquadro.minecraft.chameleon.Chameleon;
 import com.jaquadro.minecraft.chameleon.resources.ModelRegistry;
-import com.jaquadro.minecraft.storagedrawers.StorageDrawers;
-import com.jaquadro.minecraft.storagedrawers.config.ConfigManager;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -16,21 +15,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
+
 import net.samtrion.compactdrawers.CompactDrawers;
-import net.samtrion.compactdrawers.block.BlockCompactDrawer2By1;
-import net.samtrion.compactdrawers.block.BlockCompactDrawer2By1Half;
-import net.samtrion.compactdrawers.block.BlockCompactDrawerBase;
-import net.samtrion.compactdrawers.block.BlockCompactDrawerHalf;
-import net.samtrion.compactdrawers.block.EnumCompactDrawer2By1;
-import net.samtrion.compactdrawers.block.EnumCompactDrawer2By1Half;
-import net.samtrion.compactdrawers.block.EnumCompactDrawerHalf;
-import net.samtrion.compactdrawers.block.IDrawerSerializable;
-import net.samtrion.compactdrawers.tile.TileEntityCompactDrawer2By1;
-import net.samtrion.compactdrawers.tile.TileEntityCompactDrawer2By1Half;
-import net.samtrion.compactdrawers.tile.TileEntityCompactDrawerHalf;
-import net.samtrion.compactdrawers.client.model.CompactDrawer2By1HalfModel;
-import net.samtrion.compactdrawers.client.model.CompactDrawer2By1Model;
-import net.samtrion.compactdrawers.client.model.CompactDrawerHalfModel;
+import net.samtrion.compactdrawers.block.*;
+import net.samtrion.compactdrawers.tile.*;
+import net.samtrion.compactdrawers.client.model.*;
 import net.samtrion.compactdrawers.client.renderer.TileEntityCompactDrawerRenderer;
 import net.samtrion.compactdrawers.item.ItemCompactDrawer;
 
@@ -50,20 +39,22 @@ public class ModBlocks {
 
 	@Mod.EventBusSubscriber(modid = CompactDrawers.MOD_ID)
 	public static class Registration {
-		private static final ConfigManager config = StorageDrawers.config;
 
 		@SubscribeEvent
 		public static void registerBlocks(RegistryEvent.Register<Block> event) {
 			IForgeRegistry<Block> registry = event.getRegistry();
-			if (config.isBlockEnabled("compdrawers")) {
+
+			if (ModConfig.drawer2By1.enabled) {
 				registry.register(new BlockCompactDrawer2By1("compact_drawer_2by1", "compactDrawer2By1"));
 				GameRegistry.registerTileEntity(TileEntityCompactDrawer2By1.class,
 						CompactDrawers.MOD_ID + ":compact_drawer_2by1");
-
+			}
+			if (ModConfig.drawer2By1Half.enabled) {
 				registry.register(new BlockCompactDrawer2By1Half("compact_drawer_2by1_half", "compactDrawer2By1Half"));
 				GameRegistry.registerTileEntity(TileEntityCompactDrawer2By1Half.class,
 						CompactDrawers.MOD_ID + ":compact_drawer_2by1_half");
-
+			}
+			if (ModConfig.drawerHalf.enabled) {
 				registry.register(new BlockCompactDrawerHalf("compact_drawer_half", "compactDrawerHalf"));
 				GameRegistry.registerTileEntity(TileEntityCompactDrawerHalf.class,
 						CompactDrawers.MOD_ID + ":compact_drawer_half");
