@@ -1,3 +1,8 @@
+**Version 1.0.3**
++ CLEANUP: Styling
++ REMOVED: Warnings
++ REMOVED: Unused Imports
+
 **Version 1.0.2**
 + ADDED: Config Option for each drawer
 + FIXED: TileEntityCompactDrawerRender NPE

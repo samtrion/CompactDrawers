@@ -16,22 +16,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 public final class ItemHandler extends ItemOverrideList {
-	public ItemHandler() {
-		super(ImmutableList.<ItemOverride>of());
-	}
+    public ItemHandler() {
+        super(ImmutableList.<ItemOverride>of());
+    }
 
-	@Override
-	public IBakedModel handleItemState(IBakedModel parent, @Nonnull ItemStack stack, World world,
-			EntityLivingBase entity) {
-		if (stack.isEmpty())
-			return parent;
+    @SuppressWarnings("deprecation")
+    @Override
+    public IBakedModel handleItemState(IBakedModel parent, @Nonnull ItemStack stack, World world, EntityLivingBase entity) {
+        if (stack.isEmpty())
+            return parent;
 
-		if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("tile", Constants.NBT.TAG_COMPOUND))
-			return parent;
+        if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("tile", Constants.NBT.TAG_COMPOUND))
+            return parent;
 
-		Block block = Block.getBlockFromItem(stack.getItem());
-		IBlockState state = block.getStateFromMeta(stack.getMetadata());
+        Block block = Block.getBlockFromItem(stack.getItem());
+        IBlockState state = block.getStateFromMeta(stack.getMetadata());
 
-		return new DrawerSealedModel(parent, state, true);
-	}
+        return new DrawerSealedModel(parent, state, true);
+    }
 }

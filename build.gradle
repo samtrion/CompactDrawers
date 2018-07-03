@@ -118,7 +118,6 @@ if (project.hasProperty('curseforgeApi')) {
 				requiredLibrary 'chameleon'
 				requiredLibrary 'storage-drawers'
 				optionalLibrary 'jei'
-				optionalLibrary 'storage-drawers-extras'
 			}
 		}
 	}
