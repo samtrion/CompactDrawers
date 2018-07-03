@@ -23,7 +23,6 @@ public final class CompactDrawer2By1Model {
             super(ModBlocks.compactDrawer2By1);
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public List<IBlockState> getBlockStates() {
             List<IBlockState> states = new ArrayList<>();

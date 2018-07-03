@@ -17,14 +17,12 @@ import net.samtrion.compactdrawers.tile.TileEntityCompactDrawerHalf;
 import net.samtrion.compactdrawers.core.ModConfig;
 
 public class BlockCompactDrawerHalf extends BlockCompactDrawerBase {
-    @SuppressWarnings("rawtypes")
-    public static PropertyEnum SLOTS = PropertyEnum.create("slots", EnumCompactDrawerHalf.class);
+    public static PropertyEnum<EnumCompactDrawerHalf> SLOTS = PropertyEnum.create("slots", EnumCompactDrawerHalf.class);
 
     public BlockCompactDrawerHalf(String registryName, String blockName) {
         super(registryName, blockName, ModConfig.drawerHalf.capacity);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void initDefaultState() {
         super.initDefaultState();
@@ -46,7 +44,7 @@ public class BlockCompactDrawerHalf extends BlockCompactDrawerBase {
         return getDrawerGeometry(state, SLOTS).isHalfDepth();
     }
 
-    @SuppressWarnings({ "deprecation", "unchecked" })
+    @SuppressWarnings({ "deprecation" })
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
         TileEntityDrawers tile = getTileEntity(world, pos);

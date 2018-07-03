@@ -53,8 +53,7 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
         return this.drawerCapacity;
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public IDrawerGeometry getDrawerGeometry(IBlockState state, PropertyEnum slots) {
+    public IDrawerGeometry getDrawerGeometry(IBlockState state, PropertyEnum<?> slots) {
         return (IDrawerGeometry) state.getValue(slots);
     }
     
