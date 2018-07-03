@@ -1,11 +1,13 @@
 package net.samtrion.compactdrawers.block;
 
+import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGeometry;
 import com.jaquadro.minecraft.storagedrawers.block.BlockDrawers;
 import com.jaquadro.minecraft.storagedrawers.block.dynamic.StatusModelData;
 import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -20,9 +22,9 @@ import net.samtrion.compactdrawers.CompactDrawers;
 import net.samtrion.compactdrawers.item.ItemCompactDrawer;
 
 public abstract class BlockCompactDrawerBase extends BlockDrawers {
+    private final int       drawerCapacity;
 
     private final String    registryName;
-    private final int       drawerCapacity;
 
     @SideOnly(Side.CLIENT)
     private StatusModelData statusInfo;
@@ -33,52 +35,10 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
         this.registryName = registryName;
         this.drawerCapacity = drawerCapacity;
     }
-
+    
     private static String checkBlockName(String blockName) {
         return (blockName.startsWith(CompactDrawers.MOD_ID + ".") ? blockName : CompactDrawers.MOD_ID + "." + blockName).toLowerCase();
-    }
-
-    public String getName() {
-        return this.registryName;
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return 0;
-    }
-
-    public int getDrawerBaseStorage() {
-        return this.drawerCapacity;
-    }
-
-    @Override
-    public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-        list.add(ItemCompactDrawer.createStackWithNBT(new ItemStack(this, 1, 0)));
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void initDynamic() {
-        ResourceLocation location = new ResourceLocation(CompactDrawers.MOD_ID + ":models/dynamic/" + this.registryName + ".json");
-
-        IBlockState state = this.getDefaultState();
-        statusInfo = new StatusModelData(getDrawerCount(state), location);
-    }
-
-    @Override
-    public StatusModelData getStatusInfo(IBlockState state) {
-        return statusInfo;
-    }
-
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return isOpaqueCube(state);
-    }
-
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return !isHalfDepth(state);
-    }
+    }    
 
     @Override
     public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face) {
@@ -89,19 +49,15 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
         return (tile != null && tile.getDirection() == face.getOpposite().getIndex());
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        if (isFullCube(state)) {
-            return true;
-        }
-        TileEntityDrawers tile = getTileEntity(blockAccess, pos);
-        if (tile != null && tile.getDirection() == side.getIndex()) {
-            return true;
-        }
-        return super.shouldSideBeRendered(state, blockAccess, pos, side);
+    public int getDrawerBaseStorage() {
+        return this.drawerCapacity;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public IDrawerGeometry getDrawerGeometry(IBlockState state, PropertyEnum slots) {
+        return (IDrawerGeometry) state.getValue(slots);
+    }
+    
     @Override
     protected int getDrawerSlot(int drawerCount, int side, float hitX, float hitY, float hitZ) {
         if (drawerCount == 2 && !hitTop(hitY)) {
@@ -121,5 +77,55 @@ public abstract class BlockCompactDrawerBase extends BlockDrawers {
             }
         }
         return 0;
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return 0;
+    }
+
+    public String getName() {
+        return this.registryName;
+    }
+
+    @Override
+    public StatusModelData getStatusInfo(IBlockState state) {
+        return statusInfo;
+    }
+
+    @Override
+    public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
+        list.add(ItemCompactDrawer.createStackWithNBT(new ItemStack(this, 1, 0)));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void initDynamic() {
+        ResourceLocation location = new ResourceLocation(CompactDrawers.MOD_ID, "models/dynamic/" + this.registryName + ".json");
+        IBlockState state = this.getDefaultState();
+        this.statusInfo = new StatusModelData(getDrawerCount(state), location);
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return isOpaqueCube(state);
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return !isHalfDepth(state);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        if (isFullCube(state)) {
+            return true;
+        }
+        TileEntityDrawers tile = getTileEntity(blockAccess, pos);
+        if (tile != null && tile.getDirection() == side.getIndex()) {
+            return true;
+        }
+        return super.shouldSideBeRendered(state, blockAccess, pos, side);
     }
 }

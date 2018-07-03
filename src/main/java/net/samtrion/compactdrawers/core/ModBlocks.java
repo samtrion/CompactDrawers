@@ -6,6 +6,7 @@ import com.jaquadro.minecraft.chameleon.resources.ModelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -64,7 +65,7 @@ public class ModBlocks {
         }
 
         private static void registerTileEntity(Class<? extends TileEntity> tileEntityClass, String name) {
-            GameRegistry.registerTileEntity(tileEntityClass, CompactDrawers.MOD_ID + ":" + name);
+            GameRegistry.registerTileEntity(tileEntityClass, new ResourceLocation(CompactDrawers.MOD_ID, name));
         }
 
         private static void registerCompactDrawerItem(IForgeRegistry<Item> registry, IDrawerSerializable[] drawerValues, BlockCompactDrawerBase block) {

@@ -33,89 +33,85 @@ import net.samtrion.compactdrawers.block.BlockCompactDrawerBase;
 import net.samtrion.compactdrawers.block.IDrawerSerializable;
 
 public class ItemCompactDrawer extends ItemBlock implements IItemMeshMapper, IItemVariantProvider {
-	private final BlockCompactDrawerBase block;
-	private final IDrawerSerializable[] drawerValues;
+    private final BlockCompactDrawerBase block;
+    private final IDrawerSerializable[]  drawerValues;
 
-	public ItemCompactDrawer(BlockCompactDrawerBase block, IDrawerSerializable[] drawerValues) {
-		super(block);
-		this.block = block;
-		this.drawerValues = drawerValues;
-	}
+    public ItemCompactDrawer(BlockCompactDrawerBase block, IDrawerSerializable[] drawerValues) {
+        super(block);
+        this.block = block;
+        this.drawerValues = drawerValues;
+    }
 
-	@Override
-	public List<ResourceLocation> getItemVariants() {
-		ResourceLocation location = ForgeRegistries.ITEMS.getKey(this);
-		List<ResourceLocation> variants = new ArrayList<ResourceLocation>();
+    @Override
+    public List<ResourceLocation> getItemVariants() {
+        ResourceLocation location = ForgeRegistries.ITEMS.getKey(this);
+        List<ResourceLocation> variants = new ArrayList<ResourceLocation>();
 
-		for (IDrawerSerializable type : this.drawerValues) {
-			variants.add(new ResourceLocation(location.getResourceDomain(),
-					location.getResourcePath() + '_' + type.getName()));
-		}
+        for (IDrawerSerializable type : this.drawerValues) {
+            variants.add(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + '_' + type.getName()));
+        }
 
-		return variants;
-	}
+        return variants;
+    }
 
-	@Override
-	public List<Pair<ItemStack, ModelResourceLocation>> getMeshMappings() {
-		List<Pair<ItemStack, ModelResourceLocation>> mappings = new ArrayList<Pair<ItemStack, ModelResourceLocation>>();
+    @Override
+    public List<Pair<ItemStack, ModelResourceLocation>> getMeshMappings() {
+        List<Pair<ItemStack, ModelResourceLocation>> mappings = new ArrayList<Pair<ItemStack, ModelResourceLocation>>();
 
-		for (IDrawerSerializable type : this.drawerValues) {
-			ModelResourceLocation location = new ModelResourceLocation(
-					CompactDrawers.MOD_ID + ":" + this.block.getName() + "_" + type.getName(), "inventory");
-			mappings.add(Pair.of(new ItemStack(this, 1, type.getMetadata()), location));
-		}
-		return mappings;
-	}
+        for (IDrawerSerializable type : this.drawerValues) {
+            ModelResourceLocation location = new ModelResourceLocation(CompactDrawers.MOD_ID + ":" + this.block.getName() + "_" + type.getName(), "inventory");
+            mappings.add(Pair.of(new ItemStack(this, 1, type.getMetadata()), location));
+        }
+        return mappings;
+    }
 
-	@Override
-	public int getMetadata(int damage) {
-		return damage;
-	}
+    @Override
+    public int getMetadata(int damage) {
+        return damage;
+    }
 
-	@Override
-	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side,
-			float hitX, float hitY, float hitZ, IBlockState newState) {
-		if (!super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState))
-			return false;
+    @Override
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
+        if (!super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState))
+            return false;
 
-		TileEntityDrawers tile = (TileEntityDrawers) world.getTileEntity(pos);
-		if (tile != null) {
-			if (side != EnumFacing.UP && side != EnumFacing.DOWN)
-				tile.setDirection(side.ordinal());
+        TileEntityDrawers tile = (TileEntityDrawers) world.getTileEntity(pos);
+        if (tile != null) {
+            if (side != EnumFacing.UP && side != EnumFacing.DOWN)
+                tile.setDirection(side.ordinal());
 
-			if (stack.hasTagCompound() && stack.getTagCompound().hasKey("tile"))
-				tile.readFromPortableNBT(stack.getTagCompound().getCompoundTag("tile"));
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("tile"))
+                tile.readFromPortableNBT(stack.getTagCompound().getCompoundTag("tile"));
 
-			tile.setIsSealed(false);
-		}
+            tile.setIsSealed(false);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(@Nonnull ItemStack itemStack, @Nullable World world, List<String> list,
-			ITooltipFlag advanced) {
-		int count = this.block.getDrawerBaseStorage();
-		list.add(I18n.format("storagedrawers.drawers.description", count));
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(@Nonnull ItemStack itemStack, @Nullable World world, List<String> list, ITooltipFlag advanced) {
+        int count = this.block.getDrawerBaseStorage();
+        list.add(I18n.format("storagedrawers.drawers.description", count));
 
-		if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("tile")) {
-			list.add(ChatFormatting.YELLOW + I18n.format("storagedrawers.drawers.sealed"));
-		}
-	}
+        if (itemStack.hasTagCompound() && itemStack.getTagCompound().hasKey("tile")) {
+            list.add(ChatFormatting.YELLOW + I18n.format("storagedrawers.drawers.sealed"));
+        }
+    }
 
-	@Override
-	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-		super.onCreated(stack, worldIn, playerIn);
-		createStackWithNBT(stack);
-	}
+    @Override
+    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+        super.onCreated(stack, worldIn, playerIn);
+        createStackWithNBT(stack);
+    }
 
-	public static ItemStack createStackWithNBT(ItemStack stack) {
-		NBTTagCompound tag = stack.getTagCompound();
-		if (tag == null) {
-			stack.setTagCompound(new NBTTagCompound());
-		}
+    public static ItemStack createStackWithNBT(ItemStack stack) {
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag == null) {
+            stack.setTagCompound(new NBTTagCompound());
+        }
 
-		return stack;
-	}
+        return stack;
+    }
 }

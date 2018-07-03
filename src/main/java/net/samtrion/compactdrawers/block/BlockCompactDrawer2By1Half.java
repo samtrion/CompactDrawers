@@ -1,6 +1,5 @@
 package net.samtrion.compactdrawers.block;
 
-import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGeometry;
 import com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers;
 
 import net.minecraft.block.properties.IProperty;
@@ -37,16 +36,14 @@ public class BlockCompactDrawer2By1Half extends BlockCompactDrawerBase {
         return new ExtendedBlockState(this, new IProperty[] { SLOTS, FACING }, new IUnlistedProperty[] { STATE_MODEL });
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public int getDrawerCount(IBlockState state) {
-        return ((IDrawerGeometry) state.getValue(SLOTS)).getDrawerCount();
+        return getDrawerGeometry(state, SLOTS).getDrawerCount();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean isHalfDepth(IBlockState state) {
-        return ((IDrawerGeometry) state.getValue(SLOTS)).isHalfDepth();
+        return getDrawerGeometry(state, SLOTS).isHalfDepth();
     }
 
     @SuppressWarnings({ "deprecation", "unchecked" })
