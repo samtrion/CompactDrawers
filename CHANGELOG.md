@@ -1,4 +1,8 @@
 **Version 1.0.3**
++ CHANGED: Simplified CompactDrawerModel
++ CHANGED: Forge version 14.23.4.2705 / Mappings
++ CHANGED: StorageDrawers Version
++ FIXED: Issue with Keys
 + CLEANUP: Styling
 + REMOVED: Warnings
 + REMOVED: Unused Imports
