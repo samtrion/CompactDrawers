@@ -1,4 +1,5 @@
 **Version 1.0.3**
++ ADDED: Japanese translation
 + CHANGED: Simplified CompactDrawerModel
 + CHANGED: Forge version 14.23.4.2705 / Mappings
 + CHANGED: StorageDrawers Version
