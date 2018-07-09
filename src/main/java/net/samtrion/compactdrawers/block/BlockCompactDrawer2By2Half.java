@@ -52,8 +52,25 @@ public class BlockCompactDrawer2By2Half extends BlockCompactDrawerBase {
             return state;
         }
 
-        EnumCompactDrawer2By2Half slots;
-        slots = EnumCompactDrawer2By2Half.L2R2;
+        EnumCompactDrawer2By2Half slots = EnumCompactDrawer2By2Half.L2R2;
+        boolean emptyTopLeft = tile.getDrawer(0).isEmpty();
+        boolean emptyBottomLeft = tile.getDrawer(1).isEmpty();
+        boolean emptyTopRight = tile.getDrawer(2).isEmpty();
+        boolean emptyBottomRight = tile.getDrawer(3).isEmpty();
+
+        if (emptyTopLeft != emptyBottomLeft) {
+            if (emptyTopRight == emptyBottomRight) {
+                slots = EnumCompactDrawer2By2Half.L1R2;
+            } else {
+                slots = EnumCompactDrawer2By2Half.L1R1;
+            }
+        } else if (emptyTopRight != emptyBottomRight) {
+            if (emptyTopLeft == emptyBottomLeft) {
+                slots = EnumCompactDrawer2By2Half.L2R1;
+            } else {
+                slots = EnumCompactDrawer2By2Half.L1R1;
+            }
+        }
 
         return super.getActualState(state, world, pos).withProperty(SLOTS, slots);
     }

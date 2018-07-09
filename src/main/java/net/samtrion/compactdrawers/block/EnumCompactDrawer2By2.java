@@ -5,13 +5,8 @@ import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGeometry;
 public enum EnumCompactDrawer2By2 implements IDrawerGeometry, IDrawerSerializable {
     L2R2(0, 4, "l2r2"),
     L1R2(1, 2, "l1r2"),
-    L0R2(2, 2, "l0r2"),
-    L2R1(3, 2, "l2r1"),
-    L2R0(4, 2, "l2r0"),
-    L1R1(5, 2, "l1r1"),
-    L0R1(6, 1, "l0r1"),
-    L1R0(7, 1, "l1r0"),
-    L0R0(8, 0, "l0r0");
+    L2R1(2, 2, "l2r1"),
+    L1R1(3, 0, "l1r1");
     
     private static final EnumCompactDrawer2By2[] META_LOOKUP;
 
