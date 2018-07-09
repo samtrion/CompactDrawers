@@ -38,13 +38,13 @@ public final class CompactDrawerHalfModel {
         @SuppressWarnings("unchecked")
         @Override
         public IBakedModel getModel(IBlockState state, IBakedModel existingModel) {
-            return new CompactDrawerModel(existingModel, itemHandler, BlockCompactDrawerHalf.SLOTS);
+            return new CompactDrawerBuilderModel(existingModel, itemHandler, BlockCompactDrawerHalf.SLOTS);
         }
 
         @SuppressWarnings("unchecked")
         @Override
         public IBakedModel getModel(ItemStack stack, IBakedModel existingModel) {
-            return new CompactDrawerModel(existingModel, itemHandler, BlockCompactDrawerHalf.SLOTS);
+            return new CompactDrawerBuilderModel(existingModel, itemHandler, BlockCompactDrawerHalf.SLOTS);
         }
     }
 

@@ -16,12 +16,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.samtrion.compactdrawers.block.BlockCompactDrawerBase;
 
-public final class CompactDrawerModel<T extends Comparable<T>> extends ProxyBuilderModel implements IBakedModel {
+public final class CompactDrawerBuilderModel<T extends Comparable<T>> extends ProxyBuilderModel implements IBakedModel {
 
     private ItemHandler     itemHandler;
     private PropertyEnum<?> property;
 
-    public CompactDrawerModel(IBakedModel parent, ItemHandler itemHandler, PropertyEnum<?> property) {
+    public CompactDrawerBuilderModel(IBakedModel parent, ItemHandler itemHandler, PropertyEnum<?> property) {
         super(parent);
         this.itemHandler = itemHandler;
         this.property = property;
