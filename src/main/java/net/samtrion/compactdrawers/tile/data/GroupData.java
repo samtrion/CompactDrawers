@@ -18,11 +18,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.samtrion.compactdrawers.tile.TileEntityCompactDrawerBase;
 
 public final class GroupData extends FractionalDrawerGroup {
-    
+
     @CapabilityInject(IDrawerAttributes.class)
     public static Capability<IDrawerAttributes> DRAWER_ATTRIBUTES_CAPABILITY = null;
-    
-    private final TileEntityCompactDrawerBase entity;
+
+    private final TileEntityCompactDrawerBase   entity;
 
     public GroupData(int slotCount, TileEntityCompactDrawerBase entity) {
         super(slotCount);
@@ -50,7 +50,7 @@ public final class GroupData extends FractionalDrawerGroup {
     @Override
     protected void onAmountChanged() {
         if (getWorld() != null && !getWorld().isRemote) {
-            BlockPos pos = this.entity.getPos();            
+            BlockPos pos = this.entity.getPos();
             IMessage message = new CountUpdateMessage(pos, 0, getPooledCount());
             NetworkRegistry.TargetPoint targetPoint = new NetworkRegistry.TargetPoint(getWorld().provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 500);
 
@@ -59,11 +59,10 @@ public final class GroupData extends FractionalDrawerGroup {
             this.entity.markDirty();
         }
     }
-    
+
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == DRAWER_ATTRIBUTES_CAPABILITY
-                || super.hasCapability(capability, facing);
+        return capability == DRAWER_ATTRIBUTES_CAPABILITY || super.hasCapability(capability, facing);
 
     }
 
