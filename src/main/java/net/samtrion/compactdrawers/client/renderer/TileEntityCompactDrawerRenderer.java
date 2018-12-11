@@ -272,17 +272,18 @@ public class TileEntityCompactDrawerRenderer extends TileEntitySpecialRenderer<T
 
         double unit = 0.0625;
         double frontDepth = statusInfo.getFrontDepth() * unit;
+        IconRegistry ico = Chameleon.instance.iconRegistry;
 
         for (int i = 0; i < count; i++) {
             IDrawer drawer = tile.getDrawer(i);
             if (drawer == null || tile.getDrawerAttributes().isConcealed())
                 continue;
 
-            TextureAtlasSprite iconOff = Chameleon.instance.iconRegistry.getIcon(statusInfo.getSlot(i).getOffResource(level));
-            TextureAtlasSprite iconOn = Chameleon.instance.iconRegistry.getIcon(statusInfo.getSlot(i).getOnResource(level));
+            Slot slot = statusInfo.getSlot(i);
+            TextureAtlasSprite iconOff = ico.getIcon(slot.getOffResource(level));
+            TextureAtlasSprite iconOn = ico.getIcon(slot.getOnResource(level));
 
-            Area2D statusArea = statusInfo.getSlot(i).getStatusArea();
-            Area2D activeArea = statusInfo.getSlot(i).getStatusActiveArea();
+            Area2D statusArea = slot.getStatusArea();
 
             GlStateManager.enablePolygonOffset();
             GlStateManager.doPolygonOffset(-1, -1);
@@ -301,8 +302,9 @@ public class TileEntityCompactDrawerRenderer extends TileEntitySpecialRenderer<T
                 renderer.state.clearRotateTransform();
             }
             else if (level == EnumUpgradeStatus.LEVEL2) {
-                int stepX = statusInfo.getSlot(i).getActiveStepsX();
-                int stepY = statusInfo.getSlot(i).getActiveStepsY();
+                Area2D activeArea = slot.getStatusActiveArea();
+                int stepX = slot.getActiveStepsX();
+                int stepY = slot.getActiveStepsY();
 
                 double indXStart = activeArea.getX();
                 double indXEnd = activeArea.getX() + activeArea.getWidth();
