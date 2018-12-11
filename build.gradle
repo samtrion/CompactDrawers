@@ -121,12 +121,6 @@ if (project.hasProperty('curseforgeApi')) {
 			
 			addArtifact devJar
 			addArtifact srcJar
-			
-			relations {
-				requiredLibrary 'chameleon'
-				requiredLibrary 'storage-drawers'
-				optionalLibrary 'jei'
-			}
 		}
 	}
 }
