@@ -23,7 +23,15 @@ group = mod_namespace // http://maven.apache.org/guides/mini/guide-naming-conven
 archivesBaseName = mod_name
 
 println "Creating File Version '${version}' for '${archivesBaseName}'"
-	
+
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}
+
 sourceCompatibility = targetCompatibility = "${java_version}"
 compileJava {
     sourceCompatibility = targetCompatibility = "${java_version}"
