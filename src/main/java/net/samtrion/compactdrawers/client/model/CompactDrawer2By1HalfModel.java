@@ -14,6 +14,8 @@ import net.samtrion.compactdrawers.block.EnumCompactDrawer2By1Half;
 import net.samtrion.compactdrawers.core.ModBlocks;
 
 public final class CompactDrawer2By1HalfModel {
+    private static final ItemHandler itemHandler = new ItemHandler();
+
     @SuppressWarnings("rawtypes")
     public static class Register extends DefaultRegister {
 
@@ -46,6 +48,4 @@ public final class CompactDrawer2By1HalfModel {
             return new CompactDrawerBuilderModel(existingModel, itemHandler, BlockCompactDrawer2By1Half.SLOTS);
         }
     }
-
-    private static final ItemHandler itemHandler = new ItemHandler();
 }
