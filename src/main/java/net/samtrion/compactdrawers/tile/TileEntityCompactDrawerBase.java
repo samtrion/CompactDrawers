@@ -22,9 +22,9 @@ public abstract class TileEntityCompactDrawerBase extends TileEntityDrawers {
         this.name = name;
         this.capacity = drawerCapacity;
 
-        groupData = new GroupData(drawerCount, this);
-        groupData.setCapabilityProvider(this);
-        injectPortableData(groupData);
+        this.groupData = new GroupData(drawerCount, this);
+        this.groupData.setCapabilityProvider(this);
+        injectPortableData(this.groupData);
     }
 
     @Override
@@ -39,14 +39,14 @@ public abstract class TileEntityCompactDrawerBase extends TileEntityDrawers {
 
     @Override
     public IDrawerGroup getGroup() {
-        return groupData;
+        return this.groupData;
     }
 
     @Override
     public int getDrawerCapacity() {
         if (getWorld() == null || getWorld().isRemote)
             return super.getDrawerCapacity();
-        return capacity;
+        return this.capacity;
     }
 
     @Override
@@ -65,7 +65,7 @@ public abstract class TileEntityCompactDrawerBase extends TileEntityDrawers {
 
     @SideOnly(Side.CLIENT)
     private void clientUpdateCountAsync(int count) {
-        groupData.setPooledCount(count);
+        this.groupData.setPooledCount(count);
     }
     
     @SuppressWarnings("unchecked")
