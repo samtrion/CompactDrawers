@@ -1,3 +1,7 @@
+**Version 1.0.4**
++ ADDED: German translation
++ CLEANUP: Code style
+
 **Version 1.0.3**
 + ADDED: Japanese translation
 + CHANGED: Simplified CompactDrawerModel
