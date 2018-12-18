@@ -7,8 +7,6 @@ public enum EnumCompactDrawerHalf implements IDrawerGeometry, IDrawerSerializabl
     OPEN2(1, 2, "open2"),
     OPEN3(2, 3, "open3");
 
-    private static final EnumCompactDrawerHalf[] META_LOOKUP;
-
     private final int                            meta;
     private final int                            openSlots;
     private final String                         name;
@@ -38,12 +36,6 @@ public enum EnumCompactDrawerHalf implements IDrawerGeometry, IDrawerSerializabl
         return openSlots;
     }
 
-    public static EnumCompactDrawerHalf byMetadata(int meta) {
-        if (meta < 0 || meta >= META_LOOKUP.length)
-            meta = 0;
-        return META_LOOKUP[meta];
-    }
-
     @Override
     public String toString() {
         return getName();
@@ -52,12 +44,5 @@ public enum EnumCompactDrawerHalf implements IDrawerGeometry, IDrawerSerializabl
     @Override
     public String getName() {
         return name;
-    }
-
-    static {
-        META_LOOKUP = new EnumCompactDrawerHalf[values().length];
-        for (EnumCompactDrawerHalf upgrade : values()) {
-            META_LOOKUP[upgrade.getMetadata()] = upgrade;
-        }
     }
 }
