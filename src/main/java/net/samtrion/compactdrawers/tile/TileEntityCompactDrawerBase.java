@@ -16,15 +16,13 @@ import net.samtrion.compactdrawers.tile.data.GroupData;
 public abstract class TileEntityCompactDrawerBase extends TileEntityDrawers {
     private final int                    capacity;
     private final GroupData              groupData;
-    private final int                    drawerCount;
     private final String                 name;
 
     protected TileEntityCompactDrawerBase(int drawerCount, String name, int drawerCapacity) {
-        this.drawerCount = drawerCount;
         this.name = name;
         this.capacity = drawerCapacity;
 
-        groupData = new GroupData(this.drawerCount, this);
+        groupData = new GroupData(drawerCount, this);
         groupData.setCapabilityProvider(this);
         injectPortableData(groupData);
     }
