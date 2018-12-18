@@ -1,3 +1,0 @@
-files:
-  - source: /src/main/resources/assets/compactdrawers/lang/*.lang
-    translation: /%original_path%/%locale_with_underscore%.lang
