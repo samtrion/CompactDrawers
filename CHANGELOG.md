@@ -1,5 +1,6 @@
 **Version 1.0.4**
 + ADDED: German translation
++ ADDED: Spanish translation (thanks @chocomochi)
 + CLEANUP: Code style
 
 **Version 1.0.3**
