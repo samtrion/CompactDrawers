@@ -1,3 +1,7 @@
+**Version 1.0.5**
++ ADDED: French translation (thanks [DeepL](https://www.deepl.com/translator))
++ ADDED: Portuguese translation (thanks [DeepL](https://www.deepl.com/translator))
+
 **Version 1.0.4**
 + ADDED: German translation
 + ADDED: Spanish translation (thanks @chocomochi)
