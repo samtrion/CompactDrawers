@@ -1,0 +1,9 @@
+# Blocks
+tile.compactdrawers.compactdrawer2by1.name=Gavetas compactadoras 1x2
+tile.compactdrawers.compactdrawer2by1half.name=Gavetas compactadoras 1x2 Metade
+tile.compactdrawers.compactdrawerhalf.name=Gavetas Compactadoras Metade
+
+# GUI
+compactdrawers.container.compactdrawer2by1=Gavetas compactadoras 1x2
+compactdrawers.container.compactdrawer2by1half=Gavetas compactadoras 1x2 Metade
+compactdrawers.container.compactdrawerhalf=Gavetas Compactadoras Metade
